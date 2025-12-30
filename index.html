@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MediClear - Clinical Interpretation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg-dark: #0A1512;
+        --green-accent: #0E9B62;
+        --green-border: #123C33;
+        --text-main: #E5ECEA;
+        --text-muted: #A5B5AF;
+      }
+      body {
+        font-family: 'Space Grotesk', sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+      }
+      /* Typography mappings */
+      .font-editorial { font-family: 'Space Grotesk', sans-serif; }
+      .font-clinical { font-family: 'Courier Prime', monospace; }
+      
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0A1512;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #123C33;
+        border-radius: 0px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #0E9B62;
+      }
+
+      /* Print Styles for PDF Generation */
+      @media print {
+        .no-print {
+          display: none !important;
+        }
+        body {
+          background-color: white !important;
+          color: black !important;
+        }
+        /* Override specific text colors for print readability */
+        .text-\[\#E5ECEA\], .text-\[\#A5B5AF\], .text-\[\#0E9B62\] {
+          color: black !important;
+        }
+        .text-\[\#F2C94C\] {
+           color: #d97706 !important; /* Darker orange for warning visibility */
+        }
+        /* Simplify borders */
+        .border-\[\#123C33\] {
+          border-color: #e5e5e5 !important;
+        }
+        /* Remove dark backgrounds */
+        .bg-\[\#0A1512\], .bg-\[\#0D1F1A\], .bg-\[\#123C33\]\/50 {
+          background-color: transparent !important;
+        }
+        /* Ensure layout expands */
+        .max-w-3xl {
+          max-width: 100% !important;
+        }
+        /* Hide scrollbars/containers */
+        .h-\[450px\], .overflow-y-auto {
+           height: auto !important;
+           overflow: visible !important;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+</head>
+  <body class="antialiased selection:bg-[#0E9B62] selection:text-white">
+    <div id="root"></div>
+  </body>
+</html>

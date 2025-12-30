@@ -1,0 +1,8 @@
+{
+  "name": "MediClear",
+  "description": "A modern, privacy-focused medical result interpreter that simplifies complex lab reports and medical jargon into easy-to-understand language using AI.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
