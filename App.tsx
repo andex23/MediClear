@@ -35,6 +35,8 @@ const Icons = {
   Mic: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>,
   MicOff: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"/><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>,
   Download: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>,
+  ThumbsUp: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>,
+  ThumbsDown: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2"></path></svg>,
 };
 
 const HELP_TEXT = `**Welcome to MediClear!** 🏥
@@ -86,6 +88,7 @@ function App() {
 
   // UI Helper State
   const [expandedSections, setExpandedSections] = useState<number[]>([0]);
+  const [feedback, setFeedback] = useState<'up' | 'down' | null>(null);
 
   // Scroll to bottom of chat
   useEffect(() => {
@@ -304,6 +307,7 @@ function App() {
       }
 
       setAnalysisData(parsed);
+      setFeedback(null);
       const newChat = createChatSession(JSON.stringify(parsed));
       setChatSession(newChat);
       setChatHistory([{
@@ -729,6 +733,28 @@ function App() {
               ))}
             </div>
   
+            {/* Feedback Section */}
+            <div className="mt-8 flex items-center justify-between bg-[#0D1F1A] border border-[#123C33] p-4 rounded-[8px] no-print">
+              <p className="font-clinical text-[#A5B5AF] text-sm">Was this analysis helpful and accurate?</p>
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => setFeedback('up')}
+                  className={`p-2 rounded transition-colors ${feedback === 'up' ? 'bg-[#0E9B62]/20 text-[#0E9B62] border border-[#0E9B62]' : 'text-[#A5B5AF] hover:text-[#E5ECEA] hover:bg-[#123C33] border border-transparent'}`}
+                >
+                  <Icons.ThumbsUp />
+                </button>
+                <button 
+                  onClick={() => setFeedback('down')}
+                  className={`p-2 rounded transition-colors ${feedback === 'down' ? 'bg-[#E05252]/20 text-[#E05252] border border-[#E05252]' : 'text-[#A5B5AF] hover:text-[#E5ECEA] hover:bg-[#123C33] border border-transparent'}`}
+                >
+                  <Icons.ThumbsDown />
+                </button>
+              </div>
+            </div>
+            {feedback && (
+              <p className="text-[#0E9B62] font-clinical text-xs text-right mt-2 no-print">Thank you for your feedback!</p>
+            )}
+
             <Disclaimer />
   
             <div className="mt-12 pt-12 border-t border-[#123C33] no-print">
